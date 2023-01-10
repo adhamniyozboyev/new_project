@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
                      sum+=65;
                     });
                   }),
-              Text('Large')
+              Text('Largest')
             ],
           ),
           Row(
