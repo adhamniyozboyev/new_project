@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: MyApp(),
   ));
 }
@@ -14,6 +15,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Widget txt = Text('');
+  Widget go = Text('');
+  Widget con = Container();
   int sum = 0;
   bool val1 = false;
   bool val2 = false;
@@ -22,50 +26,111 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(),
+      appBar: AppBar(
+        title: Text(
+          'Pizza menu',
+          style: TextStyle(color: Colors.yellow),
+        ),
+        backgroundColor: Colors.red,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset('image/pizza.jpg'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Container(
+            height: 400,
+            width: 600,
+            color: Colors.white,
+            child: con,
+          ),
+          txt,
+          Column(
             children: [
-              Radio(
-                  value: 1,
-                  groupValue: val,
-                  onChanged: (v) {
-                    setState(() {
-                      // val = v!;
-                      if(val==2)sum-=55;
-                      if(val==3)sum-=65;
-                      val=1;sum+=45;
-                    });
-                  }),
-              Text('Small'),
-              Radio(
-                  value: 2,
-                  groupValue: val,
-                  onChanged: (v) {
-                    setState(() {
-                      // val = v!;
-                       if(val==1)sum-=45;
-                      if(val==3)sum-=65;
-                      val=2;sum+=55;
-                    });
-                  }),
-              Text('Medium'),
-              Radio(
-                  value: 3,
-                  groupValue: val,
-                  onChanged: (v) {
-                    setState(() {
-                      // val = v!;
-                       if(val==2)sum-=55;
-                      if(val==1)sum-=45;
-                      val=3;
-                     sum+=65;
-                    });
-                  }),
-              Text('Largest')
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: RadioListTile(
+                        title: Text('Small'),
+                        value: 1,
+                        groupValue: val,
+                        onChanged: (v) {
+                          setState(() {
+                            // val = v!;
+                            if (val == 2) sum -= 55;
+                            if (val == 3) sum -= 65;
+                            val = 1;
+                            sum += 45;
+                          });
+                          setState(() {
+                            con = Column(
+                              children: [
+                                Image.asset('image/pizza.jpg'),
+                                Text(
+                                  'Small pizza',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ],
+                            );
+                          });
+                        }),
+                  ),
+                  Expanded(
+                    child: RadioListTile(
+                        title: Text(
+                          'Medium',
+                          style: TextStyle(fontSize: 11),
+                        ),
+                        value: 2,
+                        groupValue: val,
+                        onChanged: (v) {
+                          setState(() {
+                            // val = v!;
+                            if (val == 1) sum -= 45;
+                            if (val == 3) sum -= 65;
+                            val = 2;
+                            sum += 55;
+                          });
+                          setState(() {
+                            con = Column(
+                              children: [
+                                Image.asset('image/pizza2.jpg'),
+                                Text('Medium pizza',
+                                    style: TextStyle(fontSize: 20)),
+                              ],
+                            );
+                          });
+                        }),
+                  ),
+                  Expanded(
+                    child: RadioListTile(
+                        title: Text(
+                          'Largest',
+                          style: TextStyle(fontSize: 11),
+                        ),
+                        value: 3,
+                        groupValue: val,
+                        onChanged: (v) {
+                          setState(() {
+                            // val = v!;
+                            if (val == 2) sum -= 55;
+                            if (val == 1) sum -= 45;
+                            val = 3;
+                            sum += 65;
+                          });
+                          setState(() {
+                            con = Column(
+                              children: [
+                                Image.asset('image/pizza3.jpg'),
+                                Text('Largest pizza',
+                                    style: TextStyle(fontSize: 20)),
+                              ],
+                            );
+                          });
+                        }),
+                  ),
+                ],
+              ),
             ],
           ),
           Row(
@@ -109,7 +174,21 @@ class _MyAppState extends State<MyApp> {
               Text('Chicken'),
             ],
           ),
-          Text('Total:$sum  ming so`m')
+          ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  txt = Text(
+                    'Please wait just a moment ...',
+                    style: TextStyle(fontSize: 25, color: Colors.pink),
+                  );
+                  go = Text(
+                    'Your pay:$sum ming so\'m',
+                    style: TextStyle(fontSize: 35, color: Colors.red),
+                  );
+                });
+              },
+              child: Text('Finish')),
+          go
         ],
       ),
     );
