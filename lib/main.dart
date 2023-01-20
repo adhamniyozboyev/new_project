@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         children: [
           Container(
             height: 400,
-            width: 600,
+            width: 601,
             color: Colors.white,
             child: con,
           ),
